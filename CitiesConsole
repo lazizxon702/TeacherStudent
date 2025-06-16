@@ -1,0 +1,21 @@
+namespace StudentTeacher.city;
+
+public abstract class CitiesConsole
+    {
+        public static List<Cities> GetCities()
+        {
+            return
+            [
+                new Cities { Id = 1, Name = "Toshkent" },
+                new Cities { Id = 2, Name = "Samarqand" },
+                new Cities { Id = 3, Name = "Buxoro" },
+                new Cities { Id = 4, Name = "Andijon" },
+                new Cities { Id = 5, Name = "Namangan" },
+                new Cities { Id = 6, Name = "Farg‘ona" },
+                new Cities { Id = 7, Name = "Xorazm" },
+                new Cities { Id = 8, Name = "Navoiy" },
+                new Cities { Id = 9, Name = "Qashqadaryo" },
+                new Cities { Id = 10, Name = "Surxondaryo" }
+            ];
+        }
+    }   
