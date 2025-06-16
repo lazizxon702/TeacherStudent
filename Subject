@@ -1,0 +1,31 @@
+namespace StudentTeacher.others;
+
+public class Subject
+  {
+    public int Id { get; private init; }
+    public string? Name { get; private init; }
+    public int GradeLevel { get; set; }
+    public DateTime LastUpdated { get; set; }
+    public bool IsDeleted { get; set; }
+    public DateTime CreatedDate { get; set; }
+    
+  
+    public static List<Subject> GetSubjects()
+    {
+      return
+      [
+        new Subject { Id = 1, Name = "Ona tili" },
+        new Subject { Id = 2, Name = "Adabiyot" },
+        new Subject { Id = 3, Name = "Matematika" },
+        new Subject { Id = 4, Name = "Geomaetriya" },
+        new Subject { Id = 5, Name = "Geografiya" },
+        new Subject { Id = 6, Name = "Astronomiya" },
+        new Subject { Id = 7, Name = "Ing tili" },
+        new Subject { Id = 8, Name = "Informatika" },
+        new Subject { Id = 9, Name = "Tarix" },
+        new Subject { Id = 10, Name = "Huquq" }
+      ];
+      
+    }
+    
+  }
