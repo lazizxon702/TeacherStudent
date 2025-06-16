@@ -1,0 +1,40 @@
+namespace StudentTeacher.Student;
+
+public abstract class StudentsSubjectsConsole
+{
+    public static List<StudentsSubjects> GetStudentsSubjects()
+    {
+        return
+        [       
+            new StudentsSubjects { Id = 1, StudentId = 1, 
+                SubjectId = 1, Mark = 87,  CreatedDate = DateTime.Now , IsDeleted = false },
+                
+            new StudentsSubjects { Id = 2, StudentId = 2, 
+                SubjectId = 2, Mark = 91,  CreatedDate = DateTime.Now , IsDeleted = false },
+                
+            new StudentsSubjects { Id = 3, StudentId = 3,  
+                SubjectId = 3, Mark = 78,  CreatedDate = DateTime.Now , IsDeleted = false },
+                
+            new StudentsSubjects { Id = 4, StudentId = 4,  
+                SubjectId = 4, Mark = 69, CreatedDate = DateTime.Now , IsDeleted = false },
+                
+            new StudentsSubjects { Id = 5, StudentId = 5,
+                SubjectId = 5, Mark = 88,  CreatedDate = DateTime.Now , IsDeleted = false },
+                
+            new StudentsSubjects { Id = 6, StudentId = 6,
+                SubjectId = 6, Mark = 93,  CreatedDate = DateTime.Now , IsDeleted = false },
+                
+            new StudentsSubjects { Id = 7, StudentId = 7,
+                SubjectId = 7, Mark = 72,  CreatedDate = DateTime.Now , IsDeleted = false },
+                
+            new StudentsSubjects { Id = 8, StudentId = 8,
+                SubjectId = 8, Mark = 84, CreatedDate = DateTime.Now , IsDeleted = false },
+                
+            new StudentsSubjects { Id = 9, StudentId = 9,
+                SubjectId = 9, Mark = 77,  CreatedDate = DateTime.Now , IsDeleted = false },
+                
+            new StudentsSubjects { Id = 10, StudentId = 10,
+                SubjectId = 10, Mark = 89,  CreatedDate = DateTime.Now , IsDeleted = false }
+        ];
+    }
+}
