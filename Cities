@@ -1,0 +1,11 @@
+namespace StudentTeacher.city;
+
+public class Cities
+{
+  
+    public int Id { get; init; }
+    public string? Name { get; init; }
+    public DateTime LastUpdated { get; set; }
+    public bool IsDeleted { get; set; }
+    public DateTime CreatedDate { get; set; }
+}
