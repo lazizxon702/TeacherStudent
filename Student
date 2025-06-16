@@ -1,0 +1,15 @@
+namespace StudentTeacher.Student;
+
+public class Student
+{
+    public int Id { get; init; }
+    public string Name { get; init; }
+    public int CityId { get; init; }
+    public DateTime DateOfBirth { get; init; }
+    public string Gender { get; init; }
+    public int GradeLevel  { get; init; }
+    public int DepartmentId { get; init; }
+    public DateTime CreatedDate {get; init;} 
+    
+    
+}
