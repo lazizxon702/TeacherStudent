@@ -1,0 +1,17 @@
+namespace StudentTeacher.Teacher;
+
+public class Teacher
+{
+    public int Id { get; init; }
+    public string? Name { get; init; }
+    public int CityId { get; init; }
+    public DateTime DateOfBirth { get; init; }
+    public string? Gender { get; init; }
+    public string? Subject { get; init; }  
+    public DateTime CreatedDate {get; init;}
+    
+    public DateTime LastUpdatedDate  { get; set; }
+    
+    public bool IsDeleted { get; set; }
+
+}
