@@ -1,0 +1,50 @@
+using Microsoft.EntityFrameworkCore;
+using StudentTeacher.Student;
+
+namespace StudentTeacher.others;
+
+public class AppDbContext : DbContext
+{
+    public DbSet<Student.Student> Students { get; set; }
+    public DbSet<Teacher.Teacher> Teachers { get; set; }
+    public DbSet<StudentsSubjects> StudentsSubjects { get; set; }
+    public DbSet<Subject> Subjects { get; set; }
+
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Teacher.Teacher>(entity =>
+        {
+            
+            entity.Property(t => t.IsDeleted).HasColumnName("IsDeleted");
+        });
+        
+        modelBuilder.Entity<Student.Student>().HasData(
+            new Student.Student
+            {
+                Id = 1, Name = "Ali Valiyev", CityId = 1, DateOfBirth = DateTime.Parse("2009-01-11"), Gender = "Erkak", GradeLevel = 11,
+                DepartmentId = 1, CreatedDate = DateTime.Now
+            },
+            new Student.Student
+            {
+                Id = 2, Name = "Malika Karimova", CityId = 2, DateOfBirth = DateTime.Parse("2008-06-15"), Gender = "Ayol", GradeLevel = 2, DepartmentId = 2, 
+                CreatedDate = DateTime.Now
+            }
+        );
+
+        modelBuilder.Entity<Teacher.Teacher>().HasData(
+            new Teacher.Teacher
+            { 
+                Id = 1, Name = "Olimov Doston", CityId = 1, DateOfBirth = DateTime.Parse("1985-03-12"), Gender = "Erkak", Subject = "Math",
+                CreatedDate = DateTime.Now, LastUpdatedDate = DateTime.Now 
+            }, 
+            new Teacher.Teacher
+            {
+                Id = 2, Name = "Mahmudova Nodira", CityId = 2, DateOfBirth = DateTime.Parse("1990-07-22"), Gender = "Ayol",
+                Subject = "Physics", CreatedDate = DateTime.Now, LastUpdatedDate = DateTime.Now
+            }
+        );
+    }
+}
