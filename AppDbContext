@@ -14,12 +14,7 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Teacher.Teacher>(entity =>
-        {
-            
-            entity.Property(t => t.IsDeleted).HasColumnName("IsDeleted");
-        });
+        
         
         modelBuilder.Entity<Student.Student>().HasData(
             new Student.Student
