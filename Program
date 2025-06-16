@@ -1,0 +1,84 @@
+using Microsoft.EntityFrameworkCore;
+using StudentTeacher.others;
+
+namespace StudentTeacher;
+
+public abstract class Program
+{
+    public static void Main()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseNpgsql("Host=localhost;Port=5432;Database=demondb;Username=postgres;Password=1234")
+            .Options;
+
+        using var context = new AppDbContext(options);
+
+        Console.WriteLine("\n  Student Ma'lumotlari \n");
+        var students = context.Students.ToList();
+        var subjects = context.Subjects.ToList();
+
+        foreach (var student in students)
+        {
+            var cityName = "Noma'lum";
+            var subjectName = subjects.FirstOrDefault()?.Name ?? "Noma'lum";
+
+            Console.WriteLine($" Id: {student.Id} \n" +
+                              $" Name: {student.Name} \n" +
+                              $" City: {cityName} \n" +
+                              $" DateOfBirth: {student.DateOfBirth} \n" +
+                              $" Gender: {student.Gender} \n" +
+                              $" GradeLevel: {student.GradeLevel} \n" +
+                              $" Subject: {subjectName} \n" +
+                              $" CreatedDate: {student.CreatedDate} \n");
+            Console.WriteLine("---------------------------------------\n");
+        }
+
+        Console.WriteLine("\n  Teacher Ma'lumotlari \n");
+        var teachers = context.Teachers.ToList();
+
+        foreach (var teacher in teachers)
+        {
+            var cityName = "Noma'lum";
+            var subjectName = subjects.FirstOrDefault(s => s.Id == teacher.Id)?.Name ?? "Noma'lum";
+
+            Console.WriteLine($" Id: {teacher.Id} \n" +
+                              $" Name: {teacher.Name} \n" +
+                              $" City: {cityName} \n" +
+                              $" DateOfBirth: {teacher.DateOfBirth} \n" +
+                              $" Gender: {teacher.Gender} \n" +
+                              $" Subject: {subjectName} \n" +
+                              $" CreatedDate: {teacher.CreatedDate} \n" ) ;
+            Console.WriteLine("---------------------------------------\n");
+        }
+
+        Console.WriteLine("\n  Top 10 Students by Mark \n");
+        var top10 = context.StudentsSubjects
+            .OrderByDescending(s => s.Mark)
+            .Take(10)
+            .ToList();
+
+        foreach (var item in top10)
+        {
+            Console.WriteLine($"ID: {item.Id}, StudentId: {item.StudentId}, " +
+                              $"SubjectId: {item.SubjectId}, Mark: {item.Mark}, " +
+                              $"CreatedDate: {item.CreatedDate}");
+            Console.WriteLine("---------------------------------------\n");
+        }
+
+        Console.WriteLine("\n  Top 5 Students by Mark \n");
+        var top5 = context.StudentsSubjects
+            .OrderByDescending(s => s.Mark)
+            .Take(5)
+            .ToList();
+
+        foreach (var item in top5)
+        {
+            Console.WriteLine($"ID: {item.Id}, StudentId: {item.StudentId}, " +
+                              $"SubjectId: {item.SubjectId}, Mark: {item.Mark}, " +
+                              $"CreatedDate: {item.CreatedDate}");
+            Console.WriteLine("---------------------------------------\n");
+        }
+
+        Console.WriteLine("\n Barcha ma'lumotlar chiqarildi.\n");
+    }
+}
