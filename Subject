@@ -1,12 +1,34 @@
+using StudentTeacher.Teacher; // <- Agar TeacherSubject shu namespace'da bo‘lsa
+
 namespace StudentTeacher.others;
 
 public class Subject
-  {
-    public int Id { get; private init; }
-    public string? Name { get; private init; }
+{
+    public int Id { get; init; }
+    public string? Name { get; init; }
     public int GradeLevel { get; set; }
     public DateTime LastUpdated { get; set; }
     public bool IsDeleted { get; set; }
     public DateTime CreatedDate { get; set; }
-    
-  }
+
+    public List<TeacherSubject> TeacherSubjects { get; set; } = new();
+
+    public static List<Subject> GetSubjects()
+    {
+        return new List<Subject>
+        {
+            new() { Id = 1, Name = "Ona tili" },
+            new() { Id = 2, Name = "Adabiyot" },
+            new() { Id = 3, Name = "Matematika" },
+            new() { Id = 4, Name = "Geometriya" },
+            new() { Id = 5, Name = "Geografiya" },
+            new() { Id = 6, Name = "Astronomiya" },
+            new() { Id = 7, Name = "Ingliz tili" },
+            new() { Id = 8, Name = "Informatika" },
+            new() { Id = 9, Name = "Tarix" },
+            new() { Id = 10, Name = "Huquq" }
+
+        };
+
+    }
+}
