@@ -1,106 +1,91 @@
 using Microsoft.EntityFrameworkCore;
+using StudentTeacher.city;
 using StudentTeacher.others;
+
 
 namespace StudentTeacher;
 
 public abstract class Program
-{
+  {
     public static void Main()
-    {
+     {
         var options = new DbContextOptionsBuilder<AppDbContext>()
             .UseNpgsql("Host=localhost;Port=5432;Database=demondb;Username=postgres;Password=1234")
             .Options;
-
+     
         using var context = new AppDbContext(options);
-
+     var cities = CitiesConsole.GetCities();
+     var department = Departments.GetDepartments();
+     
+        // STUDENTS
         Console.WriteLine("\n--- STUDENT MA'LUMOTLARI ---\n");
-
-        var students = context.Students
-            .Include(s => s.DepartmentId)
-            .Include(s => s.City)
-            .ToList();
+        var students = context.Students.ToList();
+       
 
         foreach (var student in students)
         {
+            var city = cities.FirstOrDefault(c => c.Id == student.CityId);
+            var departments = department.FirstOrDefault(d => d.Id == student.DepartmentId);
             Console.WriteLine($"Id: {student.Id}");
             Console.WriteLine($"Name: {student.Name}");
-            Console.WriteLine($"City: {student.City?.Name}");
+            Console.WriteLine($"City: {city?.Name}");
             Console.WriteLine($"DateOfBirth: {student.DateOfBirth:yyyy-MM-dd}");
             Console.WriteLine($"Gender: {student.Gender}");
             Console.WriteLine($"GradeLevel: {student.GradeLevel}");
-            Console.WriteLine($"Department: {student.DepartmentId}");
+            Console.WriteLine($"DepartmentId: {departments?.Name}");
             Console.WriteLine($"CreatedDate: {student.CreatedDate:yyyy-MM-dd}");
             Console.WriteLine("---------------------------------------\n");
         }
 
+            
+        // TEACHERS
         Console.WriteLine("\n--- TEACHER MA'LUMOTLARI ---\n");
-
-        var teachers = context.Teachers
-            .Include(t => t.City)
-            .ToList();
-
-        foreach (var teacher in teachers)
-        {
-            Console.WriteLine($"Id: {teacher.Id}");
-            Console.WriteLine($"Name: {teacher.Name}");
-            Console.WriteLine($"City: {teacher.CityId}");
-            Console.WriteLine($"DateOfBirth: {teacher.DateOfBirth:yyyy-MM-dd}");
-            Console.WriteLine($"Gender: {teacher.Gender}");
-            Console.WriteLine($"Subject: {teacher.Subject}");
-            Console.WriteLine($"CreatedDate: {teacher.CreatedDate:yyyy-MM-dd}");
-            Console.WriteLine("---------------------------------------\n");
-        }
-
-        Console.WriteLine("\n--- TOP 10 STUDENTS BY INDIVIDUAL MARK ---\n");
-
+        var teachers = context.Teachers.ToList();
+     
+      
+            foreach (var teacher in teachers)
+            {
+                Console.WriteLine($"Id: {teacher.Id}");
+                Console.WriteLine($"Name: {teacher.Name}");
+                Console.WriteLine($"CityId: {teacher.CityId}");
+                Console.WriteLine($"DateOfBirth: {teacher.DateOfBirth:yyyy-MM-dd}");
+                Console.WriteLine($"Gender: {teacher.Gender}");
+                Console.WriteLine($"Subject: {teacher.Subject}");
+                Console.WriteLine($"CreatedDate: {teacher.CreatedDate:yyyy-MM-dd}");
+                Console.WriteLine("---------------------------------------\n");
+            }
+            
+            
+        // TOP 10 STUDENTS
+        Console.WriteLine("\n--- TOP 10 STUDENTS  ---\n");
         var top10 = context.StudentsSubjects
-            .Include(ss => ss.Student)
-            .Include(ss => ss.Subject)
+            .Include(ss => ss.Student) 
             .OrderByDescending(ss => ss.Mark)
             .Take(10)
             .ToList();
-
-        foreach (var ss in top10)
-        {
-            Console.WriteLine($"Student: {ss.Student?.Name}, Subject: {ss.Subject?.Name}, Mark: {ss.Mark}");
-            Console.WriteLine("---------------------------------------\n");
-        }
-
-        Console.WriteLine("\n--- TOP 5 STUDENTS BY INDIVIDUAL MARK ---\n");
-
+            
+        foreach (var item in top10)
+        {   
+            Console.WriteLine($"Student: {item.Student?.Name}, SubjectId: {item.SubjectId}, Mark: {item.Mark}");
+            Console.WriteLine("---------------------------------------");
+        }   
+            
+            
+        // TOP 5 STUDENTS
+        Console.WriteLine("\n--- TOP 5 STUDENTS   ---\n");
         var top5 = context.StudentsSubjects
             .Include(ss => ss.Student)
-            .Include(ss => ss.Subject)
             .OrderByDescending(ss => ss.Mark)
             .Take(5)
             .ToList();
-
-        foreach (var ss in top5)
-        {
-            Console.WriteLine($"Student: {ss.Student?.Name}, Subject: {ss.Subject?.Name}, Mark: {ss.Mark}");
-            Console.WriteLine("---------------------------------------\n");
-        }
-
-        Console.WriteLine("\n--- TOP 10 STUDENTS BY AVERAGE MARK ---\n");
-
-        var topAvg = context.StudentsSubjects
-            .GroupBy(ss => ss.StudentId)
-            .Select(g => new
-            {
-                StudentId = g.Key,
-                AverageMark = g.Average(ss => ss.Mark),
-                StudentName = context.Students.FirstOrDefault(s => s.Id == g.Key)!.Name
-            })
-            .OrderByDescending(s => s.AverageMark)
-            .Take(10)
-            .ToList();
-
-        foreach (var s in topAvg)
-        {
-            Console.WriteLine($"Student: {s.StudentName}, Avg Mark: {s.AverageMark:F2}");
-            Console.WriteLine("---------------------------------------\n");
-        }
-
-        Console.WriteLine("\n   Barcha ma’lumotlar chiqarildi.\n");
-    }
-}
+            
+        foreach (var item in top5)
+        {   
+            Console.WriteLine($"Student: {item.Student?.Name}, SubjectId: {item.SubjectId}, Mark: {item.Mark}");
+            Console.WriteLine("---------------------------------------");
+        }   
+            
+            
+     }       
+ }          
+            
