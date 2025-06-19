@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using StudentTeacher.city;
 using StudentTeacher.Student;
 using StudentTeacher.Teacher;
 
@@ -10,41 +11,187 @@ public class AppDbContext : DbContext
     public DbSet<Teacher.Teacher> Teachers { get; set; }
     public DbSet<StudentsSubjects> StudentsSubjects { get; set; }
     public DbSet<Subject> Subjects { get; set; }
+    public DbSet<TeacherSubject> TeacherSubjects { get; set; }
+    public DbSet<Cities> Cities { get; set; }
+    public DbSet<Departments> Departments { get; set; }
 
-    public AppDbContext() { }
+    
+
+    
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=demondb;Username=postgres;Password=1234");
-        }
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
+        var staticDate = DateTime.SpecifyKind(new DateTime(2025, 1, 1), DateTimeKind.Utc);
+
+        // STUDENTS
         modelBuilder.Entity<Student.Student>().HasData(
-            new Student.Student { Id = 1, Name = "Ali Valiyev", CityId = 1, DateOfBirth = new DateTime(2009, 1, 11), Gender = "Erkak", GradeLevel = 11, DepartmentId = 1, CreatedDate = DateTime.UtcNow },
-            new Student.Student { Id = 2, Name = "Malika Karimova", CityId = 2, DateOfBirth = new DateTime(2008, 6, 15), Gender = "Ayol", GradeLevel = 11, DepartmentId = 2, CreatedDate = DateTime.UtcNow }
-        );
+            new Student.Student
+            {
+                Id = 1,
+                Name = "Lazizxon Sobirjonov",
+                CityId = 1,
+                DateOfBirth = DateTime.SpecifyKind(new DateTime(2007, 3, 7), DateTimeKind.Utc),
+                Gender = "Erkak",
+                GradeLevel = 11,
+                DepartmentId = 1,
+                CreatedDate = staticDate
+            },
+            new Student.Student
+            {
+                Id = 2,
+                Name = "Mohira Ortiqova",
+                CityId = 1,
+                DateOfBirth = DateTime.SpecifyKind(new DateTime(2008, 1, 16), DateTimeKind.Utc),
+                Gender = "Ayol",
+                GradeLevel = 10,
+                DepartmentId = 1,
+                CreatedDate = staticDate
+            },
+            new Student.Student
+            {
+                Id = 3,
+                Name = "Ali Valiyev",
+                CityId = 4,
+                DateOfBirth = DateTime.SpecifyKind(new DateTime(2009, 12, 16), DateTimeKind.Utc),
+                Gender = "Erkak",
+                GradeLevel = 9,
+                DepartmentId = 1,
+                CreatedDate = staticDate
+            },
+    new Student.Student
+    {
+        Id = 4,
+        Name = "Shahzod Akbarov",
+        CityId = 1,
+        DateOfBirth = DateTime.SpecifyKind(new DateTime(2007, 9, 5), DateTimeKind.Utc),
+        Gender = "Erkak",
+        GradeLevel = 10,
+        DepartmentId = 2,
+        CreatedDate = DateTime.SpecifyKind(new DateTime(2024, 1, 1), DateTimeKind.Utc)
+    },
+    new Student.Student
+    {
+        Id = 5,
+        Name = "Dilnoza Qodirova",
+        CityId = 2,
+        DateOfBirth = DateTime.SpecifyKind(new DateTime(2006, 12, 19), DateTimeKind.Utc),
+        Gender = "Ayol",
+        GradeLevel = 12,
+        DepartmentId = 1,
+        CreatedDate = DateTime.SpecifyKind(new DateTime(2024, 1, 1), DateTimeKind.Utc)
+    },
+    new Student.Student
+    {
+        Id = 6,
+        Name = "Jasur Normurodov",
+        CityId = 1,
+        DateOfBirth = DateTime.SpecifyKind(new DateTime(2008, 3, 8), DateTimeKind.Utc),
+        Gender = "Erkak",
+        GradeLevel = 11,
+        DepartmentId = 3,
+        CreatedDate = DateTime.SpecifyKind(new DateTime(2024, 1, 1), DateTimeKind.Utc)
+    },
+    new Student.Student
+    {
+        Id = 7,
+        Name = "Ozoda Mamatova",
+        CityId = 2,
+        DateOfBirth = DateTime.SpecifyKind(new DateTime(2007, 5, 30), DateTimeKind.Utc),
+        Gender = "Ayol",
+        GradeLevel = 10,
+        DepartmentId = 2,
+        CreatedDate = DateTime.SpecifyKind(new DateTime(2024, 1, 1), DateTimeKind.Utc)
+    },
+    new Student.Student
+    {
+        Id = 8,
+        Name = "Sardor Turgunov",
+        CityId = 1,
+        DateOfBirth = DateTime.SpecifyKind(new DateTime(2009, 7, 1), DateTimeKind.Utc),
+        Gender = "Erkak",
+        GradeLevel = 9,
+        DepartmentId = 1,
+        CreatedDate = DateTime.SpecifyKind(new DateTime(2024, 1, 1), DateTimeKind.Utc)
+    },
+    new Student.Student
+    {
+        Id = 9,
+        Name = "Gulbahor Ismoilova",
+        CityId = 2,
+        DateOfBirth = DateTime.SpecifyKind(new DateTime(2008, 11, 23), DateTimeKind.Utc),
+        Gender = "Ayol",
+        GradeLevel = 11,
+        DepartmentId = 2,
+        CreatedDate = DateTime.SpecifyKind(new DateTime(2024, 1, 1), DateTimeKind.Utc)
+    },
+    new Student.Student
+    {
+        Id = 10,
+        Name = "Rustam Zokirov",
+        CityId = 1,
+        DateOfBirth = DateTime.SpecifyKind(new DateTime(2007, 4, 17), DateTimeKind.Utc),
+        Gender = "Erkak",
+        GradeLevel = 12,
+        DepartmentId = 3,
+        CreatedDate = DateTime.SpecifyKind(new DateTime(2024, 1, 1), DateTimeKind.Utc)
+    }
+);
 
+        // TEACHERS
         modelBuilder.Entity<Teacher.Teacher>().HasData(
-            new Teacher.Teacher { Id = 1, Name = "Olimov Doston", CityId = 1, DateOfBirth = new DateTime(1985, 3, 12), Gender = "Erkak", Subject = "Math", CreatedDate = DateTime.UtcNow, LastUpdatedDate = DateTime.UtcNow },
-            new Teacher.Teacher { Id = 2, Name = "Mahmudova Nodira", CityId = 2, DateOfBirth = new DateTime(1990, 7, 22), Gender = "Ayol", Subject = "Physics", CreatedDate = DateTime.UtcNow, LastUpdatedDate = DateTime.UtcNow }
+            new Teacher.Teacher
+            {
+                Id = 1,
+                Name = "Olimov Doston",
+                CityId = 1,
+                DateOfBirth = DateTime.SpecifyKind(new DateTime(1985, 3, 12), DateTimeKind.Utc),
+                Gender = "Erkak",
+                Subject = "Math",
+                CreatedDate = DateTime.SpecifyKind(new DateTime(2021, 1, 1), DateTimeKind.Utc),
+                LastUpdatedDate = DateTime.SpecifyKind(new DateTime(2025, 1, 1), DateTimeKind.Utc)
+            },
+            new Teacher.Teacher
+            {
+                Id = 2,
+                Name = "Mahmudova Nodira",
+                CityId = 2,
+                DateOfBirth = DateTime.SpecifyKind(new DateTime(1990, 7, 22), DateTimeKind.Utc),
+                Gender = "Ayol",
+                Subject = "Physics",
+                CreatedDate = DateTime.SpecifyKind(new DateTime(2021, 1, 1), DateTimeKind.Utc),
+                LastUpdatedDate = DateTime.SpecifyKind(new DateTime(2025, 1, 1), DateTimeKind.Utc)
+            }
         );
 
-        modelBuilder.Entity<StudentsSubjects>().HasData(
-            new StudentsSubjects { Id = 1, StudentId = 1, SubjectId = 1, Mark = 87, CreatedDate = DateTime.UtcNow, IsDeleted = false },
-            new StudentsSubjects { Id = 2, StudentId = 2, SubjectId = 2, Mark = 91, CreatedDate = DateTime.UtcNow, IsDeleted = false }
-        );
-
+     
         modelBuilder.Entity<Subject>().HasData(
-            new Subject { Id = 1, Name = "Ona tili", GradeLevel = 11, CreatedDate = DateTime.UtcNow },
-            new Subject { Id = 2, Name = "Adabiyot", GradeLevel = 11, CreatedDate = DateTime.UtcNow }
+            new Subject { Id = 1, Name = "Math", CreatedDate = staticDate, IsDeleted = false },
+            new Subject { Id = 2, Name = "Physics", CreatedDate = staticDate, IsDeleted = false },
+            new Subject { Id = 3, Name = "Biology", CreatedDate = staticDate, IsDeleted = false }
+        );
+
+    
+        modelBuilder.Entity<TeacherSubject>().HasData(
+            new TeacherSubject { Id = 1, TeacherId = 1, SubjectId = 1, CreatedDate = staticDate, IsDeleted = false },
+            new TeacherSubject { Id = 2, TeacherId = 2, SubjectId = 2, CreatedDate = staticDate, IsDeleted = false }
+        );
+
+    
+        modelBuilder.Entity<StudentsSubjects>().HasData(
+            new StudentsSubjects { Id = 1, StudentId = 1, SubjectId = 1, Mark = 87, CreatedDate = staticDate, IsDeleted = false },
+            new StudentsSubjects { Id = 2, StudentId = 2, SubjectId = 2, Mark = 91, CreatedDate = staticDate, IsDeleted = false },
+            new StudentsSubjects { Id = 3, StudentId = 3, SubjectId = 3, Mark = 78, CreatedDate = staticDate, IsDeleted = false },
+            new StudentsSubjects { Id = 4, StudentId = 4, SubjectId = 2, Mark = 58, CreatedDate = staticDate, IsDeleted = false },
+            new StudentsSubjects { Id = 5, StudentId = 5, SubjectId = 1, Mark = 64, CreatedDate = staticDate, IsDeleted = false },
+            new StudentsSubjects { Id = 6, StudentId = 6, SubjectId = 2, Mark = 96, CreatedDate = staticDate, IsDeleted = false },
+            new StudentsSubjects { Id = 7, StudentId = 7, SubjectId = 2, Mark = 74, CreatedDate = staticDate, IsDeleted = false },
+            new StudentsSubjects { Id = 8, StudentId = 8, SubjectId = 1, Mark = 65, CreatedDate = staticDate, IsDeleted = false },
+            new StudentsSubjects { Id = 9, StudentId = 9, SubjectId = 3, Mark = 73, CreatedDate = staticDate, IsDeleted = false },
+            new StudentsSubjects { Id = 10, StudentId = 10, SubjectId = 3, Mark = 83, CreatedDate = staticDate, IsDeleted = false }
         );
     }
-}
+ }
