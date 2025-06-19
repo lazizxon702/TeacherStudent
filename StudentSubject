@@ -1,0 +1,13 @@
+namespace StudentTeacher.Student
+{
+    public class StudentsSubjects
+    {
+        public int Id { get; init; }
+        public int StudentId { get; init; }      
+        public Student? Student { get; init; }   
+        public int SubjectId { get; init; }
+        public int Mark { get; init; }
+        public bool IsDeleted { get; init; }
+        public DateTime CreatedDate { get; init; }
+    }
+}
