@@ -1,4 +1,4 @@
-using StudentTeacher.Teacher; // <- Agar TeacherSubject shu namespace'da bo‘lsa
+using StudentTeacher.Teacher; 
 
 namespace StudentTeacher.others;
 
