@@ -1,7 +1,7 @@
 namespace StudentTeacher.Teacher;
 
 public class Teacher
-{
+ {
     public int Id { get; init; }
     public string? Name { get; init; }
     public int CityId { get; init; }
@@ -12,6 +12,6 @@ public class Teacher
     
     public DateTime LastUpdatedDate  { get; set; }
     
-    public bool IsDeleted { get; set; }
 
-}
+
+ }
